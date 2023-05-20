@@ -1,4 +1,5 @@
 import styles from "../home/Home.module.css";
+import {Link} from "react-router-dom";
 
 const CarItem = ({car}) => (
     <div key={car.id}
@@ -12,7 +13,7 @@ const CarItem = ({car}) => (
         style: 'currency',
         currency: 'USD',
       }).format(car.price)}</p>
-      <button>Read more</button>
+      <Link className='btn' to={`/car/${car.id}`}>Read more</Link>
     </div>);
 
 

@@ -1,0 +1,22 @@
+.form {
+  padding: 15px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form button {
+  align-self: center;
+}
+
+.form input:focus {
+  border-color: skyblue;
+}
