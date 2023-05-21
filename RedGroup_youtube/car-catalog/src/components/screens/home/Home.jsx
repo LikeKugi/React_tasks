@@ -3,8 +3,9 @@
 import CarsService from "../../../services/cars.service.js";
 import CarItem from "../car-item/CarItem.jsx";
 import CreateCarForm from "../create-car-form/CreateCarForm.jsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../../providers/AuthProvider.jsx";
 
 const Home = () => {
   useEffect( () => {
@@ -16,6 +17,7 @@ const Home = () => {
   }, []);
 
   const [cars, setCars] = useState([]);
+  const {user, setUser} = useContext(AuthContext);
 
   useEffect(() => {
     console.log('changed cars array');
@@ -26,6 +28,13 @@ const Home = () => {
   return (
       <div>
         <h1>Cars catalog</h1>
+        {user ?
+            <>
+              <h2>Welcome, {user.name}</h2>
+              <button onClick={() => setUser(null)}>Logout</button>
+            </>  :
+            <button onClick={() => setUser({name: 'Default'})}>Login</button>
+        }
         <CreateCarForm setCars={setCars}/>
         <div>
           {cars.length ? cars.map(car =>
