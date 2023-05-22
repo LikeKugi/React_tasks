@@ -1,28 +1,16 @@
 import {useParams, Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import CarsService from "../../../services/cars.service.js";
 import CarItem from "../car-item/CarItem.jsx";
 import {withAuth} from "../../../HOC/withAuth.jsx";
+import {useQuery} from "@tanstack/react-query";
+import carsService from "../../../services/cars.service.js";
 
 const CarDetail = () => {
   const {id} = useParams()
 
-  const [car, setCar] = useState({
-    id: '',
-    name: '',
-    price: '',
-    image: '',
-  });
+  const {data, isLoading} = useQuery(['cars'], () => carsService.getById(id))
+  if (isLoading) return <p>Is loading...</p>
 
-  useEffect( () => {
-    if (!id) return;
-    const fetchData = async () => {
-      const response = await CarsService.getById(id);
-      setCar(response.data[0]);
-    }
-    fetchData();
-
-  }, [id]);
+  const car = data[0];
 
   return (
       <div>

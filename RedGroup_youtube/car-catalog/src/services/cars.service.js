@@ -1,15 +1,18 @@
-import {cars} from "./cars.data.js";
+import axios from "axios";
 
 const CarsService = {
   async getAll() {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({result: 200, data: cars}), 1500);
-    })
+    const res = await axios.get('http://localhost:3004/cars')
+    return res.data;
   },
+
   async getById(id) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({result: 200, data: cars.filter(car => car.id === +id)}), 1500);
-    })
+    const res = await axios.get(`http://localhost:3004/cars?id=${id}`);
+    return res.data;
+  },
+
+  async create(data) {
+    return axios.post('http://localhost:3004/cars', data);
   }
 }
 

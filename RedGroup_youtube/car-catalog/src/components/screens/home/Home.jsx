@@ -1,20 +1,12 @@
-// import car1 from '/1.jpg' // from public folder
-// import {cars as carsData} from "../../../services/cars.data.js";
-import CarsService from "../../../services/cars.service.js";
 import CarItem from "../car-item/CarItem.jsx";
 import CreateCarForm from "../create-car-form/CreateCarForm.jsx";
 import {useContext, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../../providers/AuthProvider.jsx";
+import {useQuery} from "@tanstack/react-query";
+import carsService from "../../../services/cars.service.js";
 
 const Home = () => {
-  useEffect( () => {
-    const fetchData = async () => {
-      const response = await CarsService.getAll();
-      setCars(response.data);
-    }
-    fetchData();
-  }, []);
+  const {data, isLoading} = useQuery(['cars'], () => carsService.getAll())
 
   const [cars, setCars] = useState([]);
   const {user, setUser} = useContext(AuthContext);
@@ -23,7 +15,7 @@ const Home = () => {
     console.log('changed cars array');
   }, [cars])
 
-  const nav = useNavigate();
+  if (isLoading) return <p>Is loading...</p>
 
   return (
       <div>
@@ -37,7 +29,7 @@ const Home = () => {
         }
         <CreateCarForm setCars={setCars}/>
         <div>
-          {cars.length ? cars.map(car =>
+          {data.length ? data.map(car =>
               <CarItem key={car.id} car={car}/>
           ) : 'No cars'}
 
@@ -47,23 +39,3 @@ const Home = () => {
 }
 
 export default Home;
-
-// import {useMemo} from "react";
-
-// const Home = () => {
-//   const [cars, setCars] = useState(carsData);
-//   const filteredCars = useMemo( () => cars.filter((car) => car.price > 22500))
-//
-//   return (
-//       <div>
-//         <h1>Cars catalog</h1>
-//         <CreateCarForm setCars={setCars}/>
-//         <div>
-//           {filteredCars.length ? filteredCars.map(car =>
-//               <CarItem key={car.id} car={car} />
-//           ) : 'No cars'}
-//
-//         </div>
-//       </div>
-//   )
-// }
