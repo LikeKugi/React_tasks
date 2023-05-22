@@ -1,0 +1,16 @@
+.task {
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: rgb(219, 219, 219);
+  border-radius: 5px;
+  border: 1px solid deepskyblue;
+}
+.task__title {
+  text-align: center;
+}
+.task__btn {
+  display: block;
+  padding: 10px 20px;
+}
+
