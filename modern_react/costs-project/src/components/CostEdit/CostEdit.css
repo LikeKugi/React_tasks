@@ -1,0 +1,54 @@
+.cost-edit {
+  background-color: #aac4d1;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 70rem;
+  max-width: 95%;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.25);
+}
+
+.cost-edit button {
+  font: inherit;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid #2a5b84;
+  background-color: #2a5b84;
+  color: #fefae1;
+  border-radius: 10px;
+  margin-right: 3px;
+}
+
+.cost-edit button:hover,
+.cost-edit button:active {
+  background-color: #2a5c84b2;
+  border-color: #2a5c84b2;
+}
+
+.cost-edit__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.cost-edit__control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.cost-edit__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.cost-edit__actions {
+  text-align: left;
+}

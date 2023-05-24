@@ -1,33 +1,20 @@
 import Costs from "./components/Costs/Costs";
+import {useState} from "react";
+import CostEdit from "./components/CostEdit/CostEdit";
+import CostsProvider from "./providers/CostsProvider";
+
 
 function App() {
 
-  const costs = [
-    {
-      date: new Date(2023, 4, 5),
-      description: 'first',
-      amount: 100,
-    },
-    {
-      date: new Date(2023, 3, 5),
-      description: 'second',
-      amount: 100,
-    },
-    {
-      date: new Date(2023, 7, 4),
-      description: 'third',
-      amount: 100,
-    },
-    {
-      date: new Date(2023, 3, 15),
-      description: 'fourth',
-      amount: 100,
-    },
-  ]
+  const [modal, setModal] = useState(false);
 
   return (
       <div className="App">
-        <Costs costs={costs} />
+        <CostsProvider>
+          <Costs />
+          <button onClick={() => setModal(true)} className='btn'>New Cost</button>
+          {modal && <CostEdit setModal={setModal}/>}
+        </CostsProvider>
       </div>
   );
 }

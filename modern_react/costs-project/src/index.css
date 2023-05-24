@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: 1px solid #2a5b84;
+  background-color: #2a5b84;
+  color: #fefae1;
+  border-radius: 15px;
+  margin-right: 3px;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #2a5c84b2;
+  border-color: #2a5c84b2;
+}
