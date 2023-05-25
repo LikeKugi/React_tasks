@@ -12,9 +12,9 @@ const CostsFilter = (props) => {
         <div className="costs-filter">
             <div className="costs-filter__control">
                 <label>Choose year</label>
-                <select value={props.year} onChange={yearChangeHandler}>
-                    <option value="0" selected>All</option>
-                    {years.map(year => <option value={year.toString()}>{year}</option>)}
+                <select value={props.year} onChange={yearChangeHandler} defaultValue={0}>
+                    <option value="0" >All</option>
+                    {years.map((year, i) => <option value={year.toString()} key={i}>{year}</option>)}
                 </select>
             </div>
         </div>

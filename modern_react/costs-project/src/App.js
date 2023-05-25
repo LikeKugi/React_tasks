@@ -2,6 +2,8 @@ import Costs from "./components/Costs/Costs";
 import {useState} from "react";
 import CostEdit from "./components/CostEdit/CostEdit";
 import CostsProvider from "./providers/CostsProvider";
+import Container from "./components/Container/Container";
+import './App.css'
 
 
 function App() {
@@ -11,8 +13,10 @@ function App() {
   return (
       <div className="App">
         <CostsProvider>
+          <Container parent="App" >
+            <button onClick={() => setModal(true)} className='btn'>New Cost</button>
+          </Container>
           <Costs />
-          <button onClick={() => setModal(true)} className='btn'>New Cost</button>
           {modal && <CostEdit setModal={setModal}/>}
         </CostsProvider>
       </div>
