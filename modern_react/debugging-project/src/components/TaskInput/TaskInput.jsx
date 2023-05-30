@@ -19,6 +19,7 @@ const TaskInput = (props) => {
             setIsInputValid(false);
             return;
         }
+        setInputText('');
         props.onAddTask(inputText);
     };
 
@@ -35,7 +36,7 @@ const TaskInput = (props) => {
                 } `}
             >
                 <label>Задачи</label>
-                <input type="text" onChange={taskInputChangeHandler} />
+                <input type="text" onChange={taskInputChangeHandler} value={inputText}/>
             </div>
             <Button type="submit">Добавить Задачу</Button>
         </form>
