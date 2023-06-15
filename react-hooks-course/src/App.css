@@ -1,0 +1,9 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.active {
+  color: #f4d35e !important;
+  border-bottom: 1px solid #f4d35e;
+}

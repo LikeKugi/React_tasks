@@ -1,0 +1,11 @@
+.nav {
+  padding: 15px 40px;
+  background-color: teal;
+  &__link {
+    color: floralwhite;
+    text-decoration: none;
+    &:not(:last-of-type) {
+      margin-right: 15px;
+    }
+  }
+}
