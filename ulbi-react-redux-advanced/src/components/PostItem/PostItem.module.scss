@@ -1,0 +1,9 @@
+.post {
+  padding: 1rem 2rem;
+  border: 1px solid turquoise;
+  border-radius: 2rem;
+  box-shadow: 5px 5px 10px turquoise;
+  &:not(:last-of-type) {
+    margin-bottom: 2rem;
+  }
+}

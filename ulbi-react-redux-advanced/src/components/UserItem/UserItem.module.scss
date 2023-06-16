@@ -1,0 +1,8 @@
+.user {
+  border: 2px solid turquoise;
+  border-radius: 2rem;
+  padding: 1rem 1.5rem;
+  &:not(:last-of-type) {
+    margin-bottom: 1.5rem;
+  }
+}

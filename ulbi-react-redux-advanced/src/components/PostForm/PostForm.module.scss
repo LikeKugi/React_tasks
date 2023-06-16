@@ -1,0 +1,20 @@
+.form {
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border: 1px solid seagreen;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 10px seagreen;
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem
+  }
+  &__description {
+    min-width: 150px;
+  }
+  &__input {
+    flex-grow: 1;
+  }
+}
