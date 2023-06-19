@@ -1,0 +1,23 @@
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: max-content;
+  max-height: max-content;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: floralwhite;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px 4px darkgray;
+}
