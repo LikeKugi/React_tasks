@@ -1,6 +1,6 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from 'mobx';
 
-class CanvasState{
+class CanvasState {
   canvas = null;
   socket = null;
   sessionID = null;
@@ -18,21 +18,21 @@ class CanvasState{
     this.sessionID = sessionID;
   }
   setCanvas(canvas) {
+    console.log(canvas);
     this.canvas = canvas;
   }
   setUsername(value) {
     this.username = value;
   }
   pushToUndo(data) {
-    this.undoList.push(data)
+    this.undoList.push(data);
   }
   pushToRedo(data) {
-    this.redoList.push(data)
+    this.redoList.push(data);
   }
   undo() {
-    const ctx = this.canvas.getContext('2d')
+    const ctx = this.canvas.getContext('2d');
     if (this.undoList < 1) {
-      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       return;
     }
     const dataURL = this.undoList.pop();
@@ -42,10 +42,10 @@ class CanvasState{
     img.onload = () => {
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
-    }
+    };
   }
   redo() {
-    const ctx = this.canvas.getContext('2d')
+    const ctx = this.canvas.getContext('2d');
     if (this.redoList < 1) {
       return;
     }
@@ -57,7 +57,7 @@ class CanvasState{
     img.onload = () => {
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
-    }
+    };
   }
 }
 

@@ -1,21 +1,31 @@
 import './App.css';
+import {useEffect, useState} from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+
+import canvasState from "./store/canvasState";
+import toolState from "./store/toolState";
+import usersState from "./store/usersState";
+
 import Root from "./pages/Root";
 import Modal from "./components/Modal/Modal";
-import {useEffect, useState} from "react";
-import canvasState from "./store/canvasState";
-import Brush from "./tools/Brush";
-import toolState from "./store/toolState";
-import Rect from "./tools/Rect";
 import StateBlock from "./components/StateBlock/StateBlock";
-import usersState from "./store/usersState";
+
+import Brush from "./tools/Brush";
+import Rect from "./tools/Rect";
 import Circle from "./tools/Circle";
+import Line from "./tools/Line";
+import NewUser from "./components/NewUser/NewUser";
+import UndoRedo from "./tools/UndoRedo";
+
 
 function App() {
   const data = `f${(+new Date).toString(16)}`
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [nickname, setNickname] = useState('');
+
+  const [showLast, setShowLast] = useState(false);
+  const [lastUser, setLastUser] = useState('');
 
   const paramIDHandler = (value) => {
     canvasState.setSessionID(value);
@@ -30,24 +40,36 @@ function App() {
   }
 
   const submitNicknameHandler = (nickname) => {
-    canvasState.setUsername(nickname)
+    usersState.setUsername(nickname)
     setNickname(nickname);
   }
+
+  useEffect(() => {
+    setShowLast(true);
+    setTimeout(() => setShowLast(false), 10000);
+  }, [lastUser])
 
   const drawHandler = (msg) => {
     const figure = msg.figure;
     const ctx = canvasState.canvas.getContext('2d');
     switch (figure.type) {
       case "brush":
-        Brush.draw(ctx, figure.x, figure.y, figure.fillColor, figure.strokeColor)
+        Brush.draw(ctx, figure.x, figure.y, figure.fillColor, figure.strokeColor, figure.lineWidth)
         break;
       case "rect":
-        Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.fillColor, figure.strokeColor);
+        canvasState.pushToUndo(canvasState.canvas.toDataURL())
+        Rect.staticDraw(ctx, figure.x, figure.y, figure.width, figure.height, figure.fillColor, figure.strokeColor, figure.lineWidth);
         break;
       case "circle":
-        Circle.staticDraw(ctx, figure.x, figure.y, figure.radius, figure.fillColor, figure.strokeColor);
+        canvasState.pushToUndo(canvasState.canvas.toDataURL())
+        Circle.staticDraw(ctx, figure.x, figure.y, figure.radius, figure.fillColor, figure.strokeColor, figure.lineWidth);
+        break;
+      case "line":
+        canvasState.pushToUndo(canvasState.canvas.toDataURL())
+        Line.staticDraw(ctx, figure.startX, figure.startY, figure.endX, figure.endY, figure.fillColor, figure.strokeColor, figure.lineWidth)
         break;
       case "finish":
+        canvasState.pushToUndo(canvasState.canvas.toDataURL())
         ctx.beginPath();
         break;
     }
@@ -70,9 +92,8 @@ function App() {
 
         switch (msg.method) {
           case "connection":
-            console.log(msg)
-            usersState.addUser(msg)
-            console.log(`User ${msg.username} connected`)
+            usersState.addUser(msg);
+            setLastUser(msg.username);
             break;
           case "draw":
             drawHandler(msg);
@@ -88,7 +109,8 @@ function App() {
       <BrowserRouter>
         <div className="app">
 
-          <StateBlock openModal={openModalHandler}/>
+          <StateBlock openModal={openModalHandler}
+                      newUser={lastUser}/>
 
           <Routes>
             <Route path="/"
@@ -99,6 +121,7 @@ function App() {
 
           {showModal && <Modal closeModal={closeModalHandler}
                                submitModal={submitNicknameHandler}/>}
+          {showLast && <NewUser newUser={lastUser}/>}
         </div>
       </BrowserRouter>
   );

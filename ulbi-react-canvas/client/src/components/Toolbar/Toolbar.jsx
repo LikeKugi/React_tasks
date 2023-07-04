@@ -1,3 +1,5 @@
+import {useRef, useState} from "react";
+
 import styles from './Toolbar.module.css'
 import brush from '../../assets/img/toolbar/brush.svg'
 import circle from '../../assets/img/toolbar/circle.svg'
@@ -7,14 +9,18 @@ import rect from '../../assets/img/toolbar/rect.svg'
 import redo from '../../assets/img/toolbar/redo.svg'
 import save from '../../assets/img/toolbar/save.svg'
 import undo from '../../assets/img/toolbar/undo.svg'
+
 import toolState from "../../store/toolState";
-import Brush from "../../tools/Brush";
 import canvasState from "../../store/canvasState";
+
+import Brush from "../../tools/Brush";
 import Rect from "../../tools/Rect";
 import Circle from "../../tools/Circle";
 import Line from "../../tools/Line";
 import Eraser from "../../tools/Eraser";
-import {useRef, useState} from "react";
+import UndoRedo from "../../tools/UndoRedo";
+import canvas from "../Canvas/Canvas";
+
 
 const Toolbar = (props) => {
   const [fillColor, setFillColor] = useState('#000000');
@@ -37,7 +43,6 @@ const Toolbar = (props) => {
     toolState.setStrokeColor(strokeColor);
     toolState.setFillColor(fillColor);
     toolState.setTool(new Brush(canvasState.canvas, canvasState.socket, canvasState.sessionID))
-    console.log(toolState.tool instanceof Brush, toolState.tool)
   }
   const rectHandler = (e) => {
     toolState.setStrokeColor(strokeColor);
@@ -52,9 +57,23 @@ const Toolbar = (props) => {
   }
 
   const circleHandler = (e) => {
-    toolState.setStrokeColor("#ffffff");
-    toolState.setFillColor("#ffffff");
+    toolState.setStrokeColor(strokeColor);
+    toolState.setFillColor(fillColor);
     toolState.setTool(new Circle(canvasState.canvas, canvasState.socket, canvasState.sessionID))
+  }
+
+  const lineHandler = (e) => {
+    toolState.setStrokeColor(strokeColor);
+    toolState.setFillColor(fillColor);
+    toolState.setTool(new Line(canvasState.canvas, canvasState.socket, canvasState.sessionID))
+  }
+
+  const undoHandler = () => {
+    canvasState.undo();
+  }
+
+  const redoHandler = () => {
+    canvasState.redo()
   }
 
   const download = () => {
@@ -76,16 +95,16 @@ const Toolbar = (props) => {
                                               alt="brush"/></button>
           <button className={styles.toolbar__btn}
                   onClick={rectHandler}><img src={rect}
-                                                                                       alt="rect"/></button>
+                                             alt="rect"/></button>
           <button className={styles.toolbar__btn}
                   onClick={circleHandler}><img src={circle}
-                                                                                         alt="circle"/></button>
+                                               alt="circle"/></button>
           <button className={styles.toolbar__btn}
                   onClick={eraserHandler}><img src={eraser}
-                                                                                         alt="eraser"/></button>
+                                               alt="eraser"/></button>
           <button className={styles.toolbar__btn}
-                  onClick={() => toolState.setTool(new Line(canvasState.canvas))}><img src={line}
-                                                                                       alt="line"/></button>
+                  onClick={lineHandler}><img src={line}
+                                             alt="line"/></button>
           <label htmlFor="fillColor">Fill color: </label>
           <input ref={fillRef}
                  className={styles.toolbar__btn}
@@ -103,11 +122,14 @@ const Toolbar = (props) => {
                  id="strokeColor"/>
         </div>
         <div className={styles.toolbar__controls}>
-          <button onClick={()=> canvasState.undo()} className={styles.toolbar__btn}><img src={undo}
+          <button onClick={undoHandler}
+                  className={styles.toolbar__btn}><img src={undo}
                                                        alt="undo"/></button>
-          <button onClick={()=> canvasState.redo()} className={styles.toolbar__btn}><img src={redo}
+          <button onClick={redoHandler}
+                  className={styles.toolbar__btn}><img src={redo}
                                                        alt="redo"/></button>
-          <button onClick={download} className={styles.toolbar__btn}><img src={save}
+          <button onClick={download}
+                  className={styles.toolbar__btn}><img src={save}
                                                        alt="save"/></button>
         </div>
 

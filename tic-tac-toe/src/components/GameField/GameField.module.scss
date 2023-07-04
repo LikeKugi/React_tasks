@@ -1,0 +1,6 @@
+.field {
+  display: grid;
+  grid-template-columns: repeat(3, 30px);
+  grid-template-rows: repeat(3, 30px);
+  padding: 1px 0 0 1px;
+}

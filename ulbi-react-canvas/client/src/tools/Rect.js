@@ -60,13 +60,15 @@ export default class Rect extends Tool {
     }
   }
 
-  static staticDraw(ctx, x, y, w, h, fillColor, strokeColor) {
+  static staticDraw(ctx, x, y, w, h, fillColor, strokeColor, lineWidth) {
     ctx.fillStyle = fillColor
     ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = lineWidth;
     ctx.beginPath()
     ctx.rect(x, y, w, h)
     ctx.fill()
     ctx.stroke()
+    ctx.beginPath()
   }
 
 }
