@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Learn React Query",
+      "completed": true
+    },
+    {
+      "title": "Learn React 18",
+      "completed": true,
+      "id": 2
+    },
+    {
+      "title": "New Test Todo",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "title": "Another One",
+      "completed": true,
+      "id": 4
+    }
+  ]
+}
