@@ -41,24 +41,29 @@ const Navbar = (): JSX.Element => {
       <StyledToolbar>
         <Typography variant="h5"
                     sx={{display: {xs: "none", sm: "block"}}}>
-          NavBar
+          Logo
         </Typography>
         <Pets sx={{display: {xs: "block", sm: "none"}}}/>
         <Search> <InputBase placeholder="Search..."/> </Search>
-        <Icons>
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
+        <Box sx={{display: "flex", gap: "20px", alignItems: "center"}}>
+          <Icons>
+          <Badge badgeContent={4}
+                 color="error">
+            <MailIcon/>
           </Badge>
-          <Badge badgeContent={2} color="error">
-            <Notifications />
+          <Badge badgeContent={2}
+                 color="error">
+            <Notifications/>
           </Badge>
         </Icons>
-        <UserBox onClick={() => setOpen(true)}>
-          <Avatar sx={{ bgcolor: green[500] }}>
-            <AssignmentIcon />
-          </Avatar>
-          <Typography variant="inherit" sx={{display: {xs: "block", sm: "none"}}}>John</Typography>
-        </UserBox>
+          <UserBox onClick={() => setOpen(true)}>
+            <Avatar sx={{bgcolor: green[500]}}>
+              <AssignmentIcon/>
+            </Avatar>
+            <Typography variant="inherit"
+                        sx={{display: {xs: "block", sm: "none"}}}>John</Typography>
+          </UserBox>
+        </Box>
       </StyledToolbar>
       <Menu
         id="demo-positioned-menu"
