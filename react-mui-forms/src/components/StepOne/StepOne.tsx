@@ -2,6 +2,7 @@ import React, {JSX} from "react";
 import {Box, Button, Container, Paper, Stack, TextField, Typography} from "@mui/material";
 import {SubmitHandler, useForm} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {useData} from "../../providers/DataProvider";
 
 const validationName = (str: string): boolean => {
   const pattern = /^[a-zA-Z]+$/g
@@ -11,7 +12,9 @@ const validationName = (str: string): boolean => {
 const StepOne = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const {handleSubmit, formState: {errors}, register, setError} = useForm<IStepOneForms>();
+  const {data, setValues} = useData();
+
+  const {handleSubmit, formState: {errors}, register, setError} = useForm<IStepOneForms>({defaultValues: {firstName: data.firstName, lastName: data.lastName}});
 
   const formSubmitHandler: SubmitHandler<IStepOneForms> = ({firstName, lastName}) => {
     let errorFlag = false;
@@ -24,6 +27,7 @@ const StepOne = (): JSX.Element => {
       errorFlag = true;
     }
     if (errorFlag) return;
+    setValues({...data, firstName, lastName})
     navigate('/step-2');
   }
 

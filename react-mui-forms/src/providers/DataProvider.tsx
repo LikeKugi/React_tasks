@@ -1,11 +1,12 @@
 import React, {createContext, FC, useContext, useState} from 'react';
 
-const defaultContextObject = {
+const defaultContextObject: IDataForms = {
   firstName: '',
   lastName: '',
   email: '',
   hasPhone: false,
-  phoneNumber: ''
+  phoneNumber: '',
+  acceptedFiles: []
 }
 
 export const DataContext = createContext<IDataContext>({data: defaultContextObject, setValues: () => {}});

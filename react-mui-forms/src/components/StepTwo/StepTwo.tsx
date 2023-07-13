@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Box, Button, Checkbox, Container, FormControlLabel, Paper, Stack, TextField, Typography} from "@mui/material";
 import parsePhoneNumberFromString from "libphonenumber-js";
+import {useData} from "../../providers/DataProvider";
 
 const validateEmail = (str: string): boolean => {
   const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
@@ -26,7 +27,9 @@ const normalizePhoneNumber = (str: string) => {
 const StepTwo = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const {handleSubmit, formState: {errors}, register, setError, watch} = useForm<IStepTwoForms>();
+  const {data, setValues} = useData();
+
+  const {handleSubmit, formState: {errors}, register, setError, watch} = useForm<IStepTwoForms>({defaultValues: {email: data.email, hasPhone: data.hasPhone, phoneNumber: data.phoneNumber}});
 
   const hasPhoneWatcher = watch("hasPhone");
 
@@ -45,7 +48,7 @@ const StepTwo = (): JSX.Element => {
     if (errorFlag) {
       return
     }
-
+    setValues({...data, email, hasPhone, phoneNumber});
     navigate('/step-3')
   }
   return (
@@ -72,7 +75,7 @@ const StepTwo = (): JSX.Element => {
                        helperText={errors.email?.message}
                        {...register("email", {required: 'Email is required'})}/>
 
-            <FormControlLabel control={<Checkbox {...register("hasPhone")} />} label="Add phone number" />
+            <FormControlLabel control={<Checkbox {...register("hasPhone")} checked={hasPhoneWatcher}/>} label="Add phone number" />
 
             {
               hasPhoneWatcher && <TextField id="phoneNumber"
