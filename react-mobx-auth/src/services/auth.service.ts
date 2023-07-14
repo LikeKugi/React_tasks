@@ -3,7 +3,6 @@ import {API_URL} from "../utils/url";
 
 export class AuthService {
   async login(loginRequest: LoginRequestDto) {
-    console.log(loginRequest)
 
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
