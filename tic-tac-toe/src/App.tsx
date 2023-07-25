@@ -3,28 +3,36 @@ import './App.css';
 import Game from "./components/Game/Game";
 import GameInfo from "./components/GameInfo/GameInfo";
 import GameField from "./components/GameField/GameField";
+import {SYMBOL_X} from "./utils/SYMBOLs";
+import GameCell from "./components/GameCell/GameCell";
+
+const initialArray = ['', '', '', '', '', '', '', '', '']
 
 function App() {
-  const [move, setMove] = useState(true);
-  const [progressing, setProgressing] = useState(true);
+  const [cells, setCells] = useState<string[]>(initialArray);
+  const [currentStep, setCurrentStep] = useState(SYMBOL_X);
+  const [winnerSequence, setWinnerSequence] = useState<number[]>([]);
+
+  const handleClick = (i: number) => {
+    console.log('click', i);
+  }
+
   return (
     <div className="App">
       <Game>
-        <GameInfo currentMove={move} progressing={progressing} />
-        <GameField />
+        <GameInfo isDraw={true}
+                  winnerSymbol=""
+                  currentStep="x"/>
+        <GameField/>
       </Game>
       <div className="game">
         <div className="game__info">Move <span className={'symbol'}></span></div>
         <div className="game__field">
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
-          <button className="cell"></button>
+          {cells.map((cell, idx) => (<GameCell symbol={''}
+                                               onClick={() => handleClick(idx)}
+                                               key={idx}
+                                               isWinner={winnerSequence?.includes(idx)}/>))
+          }
         </div>
       </div>
     </div>

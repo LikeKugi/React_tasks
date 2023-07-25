@@ -9,6 +9,7 @@ interface IGameCellProps {
 }
 
 const GameCell: FC<IGameCellProps> = ({isWinner,symbol,onClick}): JSX.Element => {
+  console.log('gamecell')
   return (
     <button
       className={`${styles['cell']} ${isWinner ? styles['cell--win'] : ''}`}
