@@ -1,5 +1,29 @@
-import {types} from 'mobx-state-tree';
+import {types, flow} from 'mobx-state-tree';
+import apiCall from "../service/api/ApiCall";
 
-const UsersStore = types.model('UsersStore', {});
+const User = types.model('User', {
+  id: types.identifier,
+  createdAt: types.string,
+  name: types.string,
+  avatar: types.string
+})
+
+const ActiveUser = User.named('ActiveUser');
+
+const UsersStore = types.model('UsersStore', {
+  users: types.maybe(types.array(User)),
+  me: types.maybe(ActiveUser),
+}).actions((self) => {
+  return {
+    load: flow(function* () {
+      self.users = yield apiCall.get('users');
+      self.me = yield apiCall.get('me');
+    }),
+    afterCreate() {
+      // @ts-ignore
+      self.load();
+    }
+  }
+});
 
 export {UsersStore};

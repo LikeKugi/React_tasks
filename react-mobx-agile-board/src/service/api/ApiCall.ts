@@ -9,7 +9,7 @@ class ApiCall {
   perform = async ({url, data, config}: IPerform) => {
     const request = await fetch(`${this.domain}/${url}`, {
       ...config,
-      body: data ? JSON.stringify(data) : '',
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application-json'
       }
@@ -20,7 +20,7 @@ class ApiCall {
   get = async (path: string, searchParams = {}) => {
     return await this.perform({
       url: `${path}?${queryString.stringify(searchParams)}`
-    })
+    });
   }
 
   post = async (path: string, payload: {}) => {
