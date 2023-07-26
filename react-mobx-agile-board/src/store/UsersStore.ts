@@ -13,17 +13,14 @@ const ActiveUser = User.named('ActiveUser');
 const UsersStore = types.model('UsersStore', {
   users: types.maybe(types.array(User)),
   me: types.maybe(ActiveUser),
-}).actions((self) => {
-  return {
-    load: flow(function* () {
-      self.users = yield apiCall.get('users');
-      self.me = yield apiCall.get('me');
-    }),
-    afterCreate() {
-      // @ts-ignore
-      self.load();
-    }
-  }
-});
+}).actions((self) => ({
+  load: flow(function* () {
+    self.users = yield apiCall.get('users');
+    self.me = yield apiCall.get('me');
+  }),
+  afterCreate() {
+    this.load();
+  },
+}))
 
 export {UsersStore};
