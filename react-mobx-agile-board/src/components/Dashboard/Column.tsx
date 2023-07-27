@@ -2,6 +2,8 @@ import {JSX} from "react";
 import {Draggable, DraggingStyle, NotDraggingStyle} from "react-beautiful-dnd";
 import {Card} from "@mui/material";
 import Task from "./Task";
+import {observer} from "mobx-react-lite";
+import { toJS } from "mobx";
 
 interface IColumnProps {
   tasks: ITask[]
@@ -17,9 +19,12 @@ const Column = ({tasks}: IColumnProps): JSX.Element => {
     }
   }
 
+  console.log('Column >>> ', toJS(tasks));
+
   return (
     <div>
-      {tasks.map((task, idx) => {
+      {tasks.map((task: ITask, idx: number) => {
+        console.log('TASK >>> ', toJS(task));
         return (
           <Draggable draggableId={`${task.id}`}
                      index={idx}
@@ -36,4 +41,4 @@ const Column = ({tasks}: IColumnProps): JSX.Element => {
     </div>
   );
 }
-export default Column;
+export default observer(Column);

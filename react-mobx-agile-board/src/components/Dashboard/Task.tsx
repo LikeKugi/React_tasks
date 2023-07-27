@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import {CardContent, Typography} from "@mui/material";
-import { toJS } from 'mobx';
+import {observer} from "mobx-react-lite";
 
 interface ITaskProps {
   task: ITask
 }
 const Task: FC<ITaskProps> = ({task}) => {
-  console.log(toJS(task));
   return (
     <CardContent>
       <Typography color={'textPrimary'} gutterBottom style={{fontSize: 18}}>
@@ -20,4 +19,4 @@ const Task: FC<ITaskProps> = ({task}) => {
   );
 };
 
-export default Task;
+export default observer(Task);

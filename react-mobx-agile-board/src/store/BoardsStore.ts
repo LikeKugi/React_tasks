@@ -1,11 +1,12 @@
-import {flow, getParent, types} from 'mobx-state-tree';
+import { toJS } from 'mobx';
+import {cast, flow, getParent, types} from 'mobx-state-tree';
 import apiCall from "../service/api/ApiCall";
 
 const Task = types.model('Task', {
   id: types.identifier,
   title: types.string,
   description: types.string,
-  assignee: types.string,
+  assignee: types.maybe(types.string),
 });
 
 const BoardSection = types.model('BoardSection', {
@@ -15,11 +16,14 @@ const BoardSection = types.model('BoardSection', {
 }).actions((self) => ({
   load: flow(function* () {
     // @ts-ignore
-    // const {id: boardID} = getParent(self, 1);
+    const {id: boardID} = getParent(self, 2);
     const {id: status} = self;
-
-    const {} = yield apiCall.get(`boards/${self.id}/tasks/${status}`)
-  })
+    const {tasks} = yield apiCall.get(`boards/${boardID}/tasks/${status}`)
+    self.tasks = cast(tasks);
+  }),
+  afterCreate() {
+    this.load();
+  },
 }))
 
 const Board = types.model('Board', {
@@ -34,6 +38,7 @@ const BoardsStore = types.model('BoardsStore', {
 }).actions((self) => ({
   load: flow(function* () {
     self.boards = yield apiCall.get('boards');
+    console.log(toJS(self.boards));
     // @ts-ignore
     self.active = 'MAIN';
   }),
