@@ -2,14 +2,15 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import './App.css';
 import Dashboard from "./components/Dashboard/Dashboard";
-import {Container} from "@mui/material";
+import {Box, Container} from "@mui/material";
+import Header from "./components/Header/Header";
 
 function App() {
 
 
   return (
     <Container maxWidth={"xl"}>
-      Start
+      <Header />
       <Dashboard />
     </Container>
   );

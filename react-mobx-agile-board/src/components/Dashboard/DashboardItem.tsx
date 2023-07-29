@@ -3,8 +3,6 @@ import {Box, Grid, Paper, Typography} from "@mui/material";
 import {Droppable} from "react-beautiful-dnd";
 import Column from "./Column";
 import { observer } from "mobx-react-lite";
-import {toJS} from "mobx";
-import task from "./Task";
 
 const DashboardItem: FC<IBoardSection> = ({id, title, tasks}): JSX.Element => {
 
@@ -16,7 +14,6 @@ const DashboardItem: FC<IBoardSection> = ({id, title, tasks}): JSX.Element => {
     }
   }
 
-  console.log('DashboardItem >>> ', id, toJS(task));
 
   return (
     <Grid item>
@@ -29,7 +26,7 @@ const DashboardItem: FC<IBoardSection> = ({id, title, tasks}): JSX.Element => {
             {title}
           </Typography>
         </Box>
-        <Droppable droppableId={'section.id'}>
+        <Droppable droppableId={id}>
           {(provided, snapshot) => (<div {...provided.droppableProps} ref={provided.innerRef}
                                          style={getListStyle(snapshot.isDraggingOver)}>{provided.placeholder}
             <Column tasks={tasks}/>

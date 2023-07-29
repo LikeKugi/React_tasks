@@ -23,4 +23,4 @@ const UsersStore = types.model('UsersStore', {
   },
 }))
 
-export {UsersStore};
+export {UsersStore, User};

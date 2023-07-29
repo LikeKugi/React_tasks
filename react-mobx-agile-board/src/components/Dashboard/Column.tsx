@@ -19,16 +19,14 @@ const Column = ({tasks}: IColumnProps): JSX.Element => {
     }
   }
 
-  console.log('Column >>> ', toJS(tasks));
 
   return (
     <div>
       {tasks.map((task: ITask, idx: number) => {
-        console.log('TASK >>> ', toJS(task));
         return (
           <Draggable draggableId={`${task.id}`}
                      index={idx}
-                     key={task.id}>
+                     key={`${task.id}`}>
             {(provided, snapshot) => (
               <Card ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                     style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
