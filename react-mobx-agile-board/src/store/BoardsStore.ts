@@ -2,6 +2,7 @@ import {cast, flow, getParent, onSnapshot, types} from 'mobx-state-tree';
 import apiCall from "../service/api/ApiCall";
 import { User } from './UsersStore';
 import {DraggableLocation} from "react-beautiful-dnd";
+import {toJS} from "mobx";
 
 const Task = types.model('Task', {
   id: types.identifier,
@@ -29,8 +30,8 @@ const BoardSection = types.model('BoardSection', {
     // @ts-ignore
     const {id: boardID} = getParent(self, 2);
     const {id: status} = self;
-    console.log(tasks);
-    yield apiCall.put(`boards/${boardID}/tasks/${status}`, {tasks})
+
+    yield apiCall.put(`boards/${boardID}/tasks/${status}`, {tasks});
   }),
   afterCreate() {
     this.load();
@@ -42,15 +43,19 @@ const Board = types.model('Board', {
   title: types.string,
   sections: types.array(BoardSection),
 }).actions((self) => ({
-  moveTask: (id: string, source: DraggableLocation, destination:  DraggableLocation | null | undefined) => {
+  moveTask: (taskID: string, source: DraggableLocation, destination:  DraggableLocation | null | undefined) => {
     if (!destination) return;
-    const sourceSection = self.sections.find((section) => section.id === source.droppableId);
-    const destinationSection = self.sections.find((section) => section.id === destination?.droppableId);
-    if (!sourceSection || !destinationSection) return;
 
-    const taskToMoveIdx = sourceSection.tasks.findIndex(task => task.id === id);
-    const [task] = sourceSection.tasks.splice(taskToMoveIdx, 1);
-    destinationSection.tasks.splice(destination?.index, 0, JSON.parse(JSON.stringify(task)))
+    const fromSection = self.sections.find(section => section.id === source.droppableId);
+    const toSection = self.sections.find(section => section.id === destination.droppableId);
+
+    if (!fromSection || !toSection) return;
+
+    const taskToMoveIndex = fromSection.tasks.findIndex(task => task.id === taskID);
+    const [task] = fromSection.tasks.splice(taskToMoveIndex, 1);
+
+    // @ts-ignore
+    toSection.tasks.splice(destination.index, 0, task.toJSON());
   },
 }))
 
@@ -62,6 +67,10 @@ const BoardsStore = types.model('BoardsStore', {
     return self.boards.map(({id, title}) => ({id, title}));
   }
 })).actions((self) => ({
+  selectBoard(id: string) {
+    // @ts-ignore
+    self.active = id;
+  },
   load: flow(function* () {
     self.boards = yield apiCall.get('boards');
     // @ts-ignore

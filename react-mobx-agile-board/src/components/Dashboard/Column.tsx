@@ -3,7 +3,6 @@ import {Draggable, DraggingStyle, NotDraggingStyle} from "react-beautiful-dnd";
 import {Card} from "@mui/material";
 import Task from "./Task";
 import {observer} from "mobx-react-lite";
-import { toJS } from "mobx";
 
 interface IColumnProps {
   tasks: ITask[]

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import {CardContent, Typography} from "@mui/material";
 import {observer} from "mobx-react-lite";
 import User from '../common/User';
@@ -7,7 +7,7 @@ interface ITaskProps {
   id: string | number
   title: string
   description: string
-  assignee: IUser | string
+  assignee?: IUser | string
 }
 const Task = ({task}: {task: ITaskProps}) => {
   return (
@@ -18,7 +18,7 @@ const Task = ({task}: {task: ITaskProps}) => {
       <Typography color="textSecondary" gutterBottom>
         {task.description}
       </Typography>
-      {typeof task.assignee !== 'string' && <User user={task.assignee}/>}
+      {task.assignee && typeof task.assignee !== 'string' && <User user={task.assignee}/>}
     </CardContent>
   );
 };

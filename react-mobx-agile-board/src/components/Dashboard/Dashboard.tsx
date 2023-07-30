@@ -4,7 +4,6 @@ import useStore from "../../hooks/useStore";
 import {Box, Grid} from "@mui/material";
 import {DragDropContext, DropResult} from "react-beautiful-dnd";
 import DashboardItem from "./DashboardItem";
-import {toJS} from "mobx";
 
 
 const Dashboard = (): JSX.Element => {

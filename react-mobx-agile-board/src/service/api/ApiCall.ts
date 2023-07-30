@@ -7,6 +7,7 @@ class ApiCall {
   }
 
   perform = async ({url, data, config}: IPerform) => {
+    console.log('PERFORM >>> ',url, data, Array.isArray(data) , config);
     const request = await fetch(`${this.domain}/${url}`, {
       ...config,
       body: JSON.stringify(data),

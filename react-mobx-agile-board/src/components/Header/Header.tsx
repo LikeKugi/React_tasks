@@ -1,11 +1,17 @@
-import {JSX} from "react";
+import {ChangeEvent, JSX} from "react";
 import {observer} from "mobx-react-lite";
-import {AppBar, Box, Grid, MenuItem, Select, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Grid, MenuItem, Select, SelectChangeEvent, Toolbar, Typography} from "@mui/material";
 import useStore from "../../hooks/useStore";
 import User from "../common/User";
 
 const Header = (): JSX.Element => {
   const {boards, users} = useStore();
+
+  const changeBoardHandler = (event: SelectChangeEvent) => {
+    const {value} = event.target;
+
+    boards.selectBoard(value);
+  }
   return (
     <AppBar position={"static"}>
       <Toolbar variant="dense">
@@ -24,8 +30,7 @@ const Header = (): JSX.Element => {
                         sx={{
                           backgroundColor: '#fefefe',
                         }}
-                        onChange={() => {
-                        }}>
+                        onChange={changeBoardHandler}>
                   <MenuItem value={''}
                             disabled>
                     -
