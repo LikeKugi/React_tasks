@@ -29,6 +29,7 @@ const Header = (): JSX.Element => {
                 <Select value={boards?.active?.id || ''}
                         sx={{
                           backgroundColor: '#fefefe',
+                          minWidth: 250,
                         }}
                         onChange={changeBoardHandler}>
                   <MenuItem value={''}

@@ -3,7 +3,6 @@ import {Avatar, Grid, Typography} from "@mui/material";
 import { toJS } from "mobx";
 
 const User = ({user}: {user: IUser}): JSX.Element => {
-  console.log('USER >>> ',toJS( user))
   return (
     <Grid container
           alignItems={"center"} spacing={3}>

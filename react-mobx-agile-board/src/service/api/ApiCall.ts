@@ -12,9 +12,10 @@ class ApiCall {
       ...config,
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application-json'
+        "Content-Type": "application/json"
       }
     })
+    console.log(request);
     return await request.json();
   }
 
@@ -28,7 +29,7 @@ class ApiCall {
     return await this.perform({
       url: path, data: payload,
       config: {
-        method: 'POST',
+        method: "POST",
       }
     })
   }
@@ -37,7 +38,7 @@ class ApiCall {
     return await this.perform({
       url: path, data: payload,
       config: {
-        method: 'PUT',
+        method: "PUT",
       }
     })
   }
@@ -46,7 +47,7 @@ class ApiCall {
     return await this.perform({
       url: path,
       config: {
-        method: 'DELETE',
+        method: "DELETE",
       }
     })
   }

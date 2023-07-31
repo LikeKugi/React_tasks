@@ -30,7 +30,6 @@ const BoardSection = types.model('BoardSection', {
     // @ts-ignore
     const {id: boardID} = getParent(self, 2);
     const {id: status} = self;
-
     yield apiCall.put(`boards/${boardID}/tasks/${status}`, {tasks});
   }),
   afterCreate() {
@@ -73,8 +72,6 @@ const BoardsStore = types.model('BoardsStore', {
   },
   load: flow(function* () {
     self.boards = yield apiCall.get('boards');
-    // @ts-ignore
-    self.active = 'MAIN';
   }),
   afterCreate() {
     this.load();
