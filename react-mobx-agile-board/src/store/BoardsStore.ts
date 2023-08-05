@@ -1,8 +1,9 @@
 import {cast, flow, getParent, onSnapshot, types} from 'mobx-state-tree';
 import apiCall from "../service/api/ApiCall";
-import { User } from './UsersStore';
+import {User} from './UsersStore';
 import {DraggableLocation} from "react-beautiful-dnd";
-import {toJS} from "mobx";
+import {v4} from 'uuid';
+import {IFormNewTaskState} from "../components/Dashboard/NewTask";
 
 const Task = types.model('Task', {
   id: types.identifier,
@@ -42,7 +43,7 @@ const Board = types.model('Board', {
   title: types.string,
   sections: types.array(BoardSection),
 }).actions((self) => ({
-  moveTask: (taskID: string, source: DraggableLocation, destination:  DraggableLocation | null | undefined) => {
+  moveTask: (taskID: string, source: DraggableLocation, destination: DraggableLocation | null | undefined) => {
     if (!destination) return;
 
     const fromSection = self.sections.find(section => section.id === source.droppableId);
@@ -56,13 +57,23 @@ const Board = types.model('Board', {
     // @ts-ignore
     toSection.tasks.splice(destination.index, 0, task.toJSON());
   },
+  addTask(payload: IFormNewTaskState) {
+    console.log('add new task');
+    const section = self.sections.find((section) => section.id === 'BACKLOG');
+    if (!section) return;
+    console.log('addTask >>> ', payload);
+    section.tasks.push({
+      id: v4(),
+      ...payload,
+    })
+  },
 }))
 
 const BoardsStore = types.model('BoardsStore', {
   boards: types.optional(types.array(Board), []),
   active: types.safeReference(Board),
 }).views((self) => ({
-  get list(){
+  get list() {
     return self.boards.map(({id, title}) => ({id, title}));
   }
 })).actions((self) => ({
