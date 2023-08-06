@@ -1,0 +1,9 @@
+.item {
+  max-width: 500px;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid darkslategray;
+  &__title {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Air Fryer Cheesy Bacon Ranch French Fries",
+      "image": "https://www.allrecipes.com/thmb/MexWU8qk0lfTlxPcXR3lISo1n1Y=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7560981_Air-Fryer-Cheesy-Bacon-Ranch-Fries-Soup-Loving-Nicole_4x3-3db3470e8a3d4bdb8523989590c2ca52.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Air Fryer Blooming Onion",
+      "image": "https://www.allrecipes.com/thmb/BtbNSVcffLwcMIcCR9-aXm4D4D4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7546676-Air-Fryer-Blooming-Onion-CD-R311158-10043-2-4x3-27e22aa4df634f9c9dacf26683316c2d.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Air Fryer Samosas",
+      "image": "https://www.allrecipes.com/thmb/_eY7NPFMlupVUgZ7dZBILmui7fk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7510128-air-fryer-samosas-BP_M7009192_R307417_7810-1-4x3-a862c799d09a4701a609bbae55fce7fe.jpg"
+    }
+    ,{
+      "id": 4,
+      "name": "Air Fryer Garlic Green Beans",
+      "image": "https://www.allrecipes.com/thmb/c3IUGSi2qlB5dCDlbZhiSVfCeDU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7511002_Air-Fryer-Garlic-Green-Beans_SoupLovingNicole_4x3-85a8285199ca43dfb55655309aa33dc2.jpg"
+    }
+  ]
+}
