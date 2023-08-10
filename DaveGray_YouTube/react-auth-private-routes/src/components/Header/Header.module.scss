@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 10px 20px;
+  border-bottom: 2px solid teal;
+  background-color: teal;
+  &__link {
+    text-decoration: none;
+    &:not(:last-of-type) {
+      margin-right: 15px;
+    }
+  }
+}
