@@ -1,0 +1,17 @@
+.header {
+  border-bottom: 2px solid teal;
+  font-size: 1.5rem;
+  padding: 10px 30px;
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  &__link {
+    text-decoration: none;
+    color: lightcyan;
+    &:hover, &:active {
+      color: floralwhite;
+    }
+  }
+}

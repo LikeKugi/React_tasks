@@ -3,6 +3,10 @@ export interface IUserCreateAPI {
   password: string
 }
 
+export interface IUserRequestAPI extends IUserCreateAPI {
+  id: number
+}
+
 export interface IUserResponseAPI {
   accessToken: string,
   user: {

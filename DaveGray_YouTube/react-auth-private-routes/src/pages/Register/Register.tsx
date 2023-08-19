@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {EMAIL_REGEX, PWD_REGEX} from "../../utils/regexData";
 import {Link} from "react-router-dom";
 import api from "../../api/api";
-import { REGISTER_URL } from "../../utils/URLs";
+import {REGISTER_URL} from "../../utils/URLs";
 import {AxiosError} from "axios";
 import {IUserResponseAPI} from "../../types/TypesAPI";
 
@@ -59,15 +59,15 @@ const Register = () => {
     }
     try {
       const response = await api.post<IUserResponseAPI>(REGISTER_URL,
-        JSON.stringify({ email: user, password: pwd }),
+        JSON.stringify({email: user, password: pwd}),
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: {'Content-Type': 'application/json'},
           withCredentials: true
         }
       );
       console.log(response.data.accessToken);
       console.log(response?.data.user);
-      console.log(JSON.stringify(response))
+      console.log(JSON.stringify(response));
       setSuccess(true);
       //clear state and controlled inputs
       //need value attrib on inputs for this
@@ -81,7 +81,7 @@ const Register = () => {
       } else if (err.response?.status === 409) {
         setErrMsg('Username Taken');
       } else {
-        setErrMsg('Registration Failed')
+        setErrMsg('Registration Failed');
       }
       if (errRef.current) {
         errRef.current.focus();
