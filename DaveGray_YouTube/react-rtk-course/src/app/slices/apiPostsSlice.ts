@@ -118,5 +118,6 @@ const apiPostsSlice = createSlice({
 export const selectAllApiPosts = (state: RootState) => state.apiPosts.posts;
 export const getApiPostsStatus = (state: RootState) => state.apiPosts.status;
 export const getApiPostsError = (state: RootState) => state.apiPosts.error;
-export const {postAdded, reactionAdded} = apiPostsSlice.actions;
+export const selectApiPostById = (state: RootState, postId: number | string) => state.apiPosts.posts.find(post => post.id === postId);
+export const { postAdded, reactionAdded } = apiPostsSlice.actions;
 export const apiPostsReducer = apiPostsSlice.reducer;

@@ -1,12 +1,12 @@
 import { JSX } from 'react';
-import PostsApiList from '../features/posts/PostsApiList';
-import AddPostApiForm from '../components/AddPostForm/AddPostApiForm';
+import { Outlet } from 'react-router-dom';
+import PostsNav from '../components/PostsNav/PostsNav';
 
 const LessonThird = (): JSX.Element => {
   return (
     <div>
-      <AddPostApiForm />
-      <PostsApiList />
+      <PostsNav />
+      <Outlet />
     </div>
   );
 };

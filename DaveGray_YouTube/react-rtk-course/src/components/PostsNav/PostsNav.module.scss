@@ -1,0 +1,17 @@
+.nav {
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+
+  &__link {
+    color: #fff;
+    text-decoration: none;
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+    &:not(:last-of-type) {
+      margin-right: 25px;
+    }
+  }
+}
+
