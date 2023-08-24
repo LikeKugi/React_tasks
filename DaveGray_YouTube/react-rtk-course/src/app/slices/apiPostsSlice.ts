@@ -22,7 +22,7 @@ export const fetchApiPosts = createAsyncThunk('apiPosts/fetchApiPosts', async ()
   }
 });
 
-export const addNewApiPost = createAsyncThunk('apiPosts/addNewPost', async (initialPost) => {
+export const addNewApiPost = createAsyncThunk('apiPosts/addNewPost', async (initialPost: Omit<IApiPost, 'id'>) => {
   try {
     const response = await axios.post(POSTS_URL, initialPost);
     return response.data;
@@ -94,6 +94,23 @@ const apiPostsSlice = createSlice({
       .addCase(fetchApiPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message || null;
+      })
+      .addCase(addNewApiPost.fulfilled, (state, action: PayloadAction<IApiPost>) => {
+        const outPost: IApiPostSlice = {
+          userId: Number(action.payload.userId),
+          date: new Date().toISOString(),
+          reactions: {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          },
+          title: action.payload.title,
+          body: action.payload.body,
+          id: action.payload.id,
+        };
+        state.posts.push(outPost);
       });
   }
 });
@@ -101,4 +118,5 @@ const apiPostsSlice = createSlice({
 export const selectAllApiPosts = (state: RootState) => state.apiPosts.posts;
 export const getApiPostsStatus = (state: RootState) => state.apiPosts.status;
 export const getApiPostsError = (state: RootState) => state.apiPosts.error;
+export const {postAdded, reactionAdded} = apiPostsSlice.actions;
 export const apiPostsReducer = apiPostsSlice.reducer;

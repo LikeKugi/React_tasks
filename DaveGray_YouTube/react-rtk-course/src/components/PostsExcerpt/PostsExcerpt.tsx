@@ -3,6 +3,7 @@ import { IApiPostSlice } from '../../types/slicesTypes/apiPostsSliceTypes';
 import PostAuthor from '../PostAuthor/PostAuthor';
 import TimeAgo from '../TimeAgo/TimeAgo';
 import ReactionButtons from '../ReactionButtons/ReactionButtons';
+import { reactionAdded } from '../../app/slices/apiPostsSlice';
 
 interface IPostsExcerptProps {
   post: IApiPostSlice
@@ -17,7 +18,7 @@ const PostsExcerpt: FC<IPostsExcerptProps> = ({post}): JSX.Element => {
         <PostAuthor userID={post.userId}/>
         <TimeAgo timestamp={post.date} />
       </p>
-      <ReactionButtons post={post} />
+      <ReactionButtons post={post} reactionAdded={reactionAdded} />
     </article>
   );
 };

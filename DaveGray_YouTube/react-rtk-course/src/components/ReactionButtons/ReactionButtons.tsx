@@ -1,8 +1,9 @@
 import { FC, JSX } from 'react';
 import { IReactionEmoji } from '../../types/IReaction';
 import { useAppDispatch } from '../../app/store';
-import { reactionAdded } from '../../app/slices/postsSlice';
 import { IPostReactionable } from '../../types/IPosts';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { IReactionAdded } from '../../types/slicesTypes/postsSliceTypes';
 
 const reactionEmoji: IReactionEmoji = {
   thumbsUp: '👍',
@@ -14,9 +15,10 @@ const reactionEmoji: IReactionEmoji = {
 
 interface IReactionButtonProps {
   post: IPostReactionable;
+  reactionAdded:  ActionCreatorWithPayload<IReactionAdded>
 }
 
-const ReactionButtons: FC<IReactionButtonProps> = ({ post }): JSX.Element => {
+const ReactionButtons: FC<IReactionButtonProps> = ({ post, reactionAdded }): JSX.Element => {
   const dispatch = useAppDispatch();
 
   return (

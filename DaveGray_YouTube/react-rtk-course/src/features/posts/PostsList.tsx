@@ -4,6 +4,7 @@ import { selectAllPosts } from '../../app/slices/postsSlice';
 import PostAuthor from '../../components/PostAuthor/PostAuthor';
 import TimeAgo from '../../components/TimeAgo/TimeAgo';
 import ReactionButtons from '../../components/ReactionButtons/ReactionButtons';
+import { reactionAdded } from '../../app/slices/postsSlice';
 
 const PostsList = (): JSX.Element => {
   const posts = useAppSelector(selectAllPosts);
@@ -18,7 +19,7 @@ const PostsList = (): JSX.Element => {
         <PostAuthor userID={post.userID}/>
         <TimeAgo timestamp={post.date} />
       </p>
-      <ReactionButtons post={post} />
+      <ReactionButtons post={post} reactionAdded={reactionAdded} />
     </article>
   ));
 
