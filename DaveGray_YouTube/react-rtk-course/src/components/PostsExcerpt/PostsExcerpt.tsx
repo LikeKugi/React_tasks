@@ -15,7 +15,7 @@ const PostsExcerpt: FC<IPostsExcerptProps> = ({post}): JSX.Element => {
     <article>
       <h3>{post.title}</h3>
       <p>{post.body.substring(0, 75)}</p>
-      <Link to={`/third/${post.id}`} style={{color: '#aafafa'}}>View Post</Link>
+      <Link to={`/third/${post.id}`} style={{color: '#aafafa', textDecoration: 'none'}}>View Post</Link>
       <p className="postCredit">
         <PostAuthor userID={post.userId}/>
         <TimeAgo timestamp={post.date} />

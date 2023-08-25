@@ -16,6 +16,10 @@ body {
   padding: 0 10% 10%;
 }
 
+button {
+  cursor: pointer;
+}
+
 input,
 textarea,
 button,

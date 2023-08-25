@@ -32,6 +32,29 @@ export const addNewApiPost = createAsyncThunk('apiPosts/addNewPost', async (init
   }
 });
 
+export const updatePost = createAsyncThunk('apiPosts/updatePost', async (initialPost: Omit<IApiPostSlice, 'date'>) => {
+  const { id } = initialPost;
+  try {
+    const response = await axios.put(`${POSTS_URL}/${id}`, initialPost);
+    return response.data;
+  } catch (e: unknown) {
+    const err = e as AxiosError;
+    return err.message;
+  }
+});
+
+export const deletePost = createAsyncThunk('apiPosts/deletePost', async (initialPost: IApiPostSlice) => {
+  const {id} = initialPost;
+  try {
+    const response = await axios.delete(`${POSTS_URL}/${id}`);
+    if (response.status === 200) return initialPost;
+    return `${response.status}: ${response.statusText}`
+  } catch (e: unknown) {
+    const err = e as AxiosError;
+    return err.message;
+  }
+})
+
 const apiPostsSlice = createSlice({
   name: 'apiPosts',
   initialState,
@@ -111,11 +134,32 @@ const apiPostsSlice = createSlice({
           id: action.payload.id,
         };
         state.posts.push(outPost);
-      });
+      })
+      .addCase(updatePost.fulfilled, (state, action:PayloadAction<IApiPostSlice>) => {
+        if (!action.payload?.id) {
+          return;
+        }
+        const {id} = action.payload;
+        const outObj = {
+          ...action.payload,
+          date: new Date().toISOString()
+        }
+        const posts = state.posts.filter(post => post.id !== id);
+        state.posts = [...posts, outObj];
+      })
+      .addCase(deletePost.fulfilled, (state, action: PayloadAction<IApiPostSlice | string>) => {
+        if (typeof action.payload === 'string' || !action.payload?.id) {
+          return;
+        }
+        const {id} = action.payload;
+        const posts = state.posts.filter(post => post.id !== id);
+        state.posts = [...posts];
+      })
   }
 });
 
 export const selectAllApiPosts = (state: RootState) => state.apiPosts.posts;
+export const getApiPostsLength = (state: RootState) => state.apiPosts.posts.length;
 export const getApiPostsStatus = (state: RootState) => state.apiPosts.status;
 export const getApiPostsError = (state: RootState) => state.apiPosts.error;
 export const selectApiPostById = (state: RootState, postId: number | string) => state.apiPosts.posts.find(post => post.id === postId);

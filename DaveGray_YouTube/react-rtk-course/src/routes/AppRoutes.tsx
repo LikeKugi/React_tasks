@@ -7,6 +7,7 @@ import LessonThird from '../pages/LessonThird';
 import SingleApiPostPage from '../components/SingleApiPostPage/SingleApiPostPage';
 import AddPostApiForm from '../components/AddPostForm/AddPostApiForm';
 import PostsApiList from '../features/posts/PostsApiList';
+import EditPostForm from '../components/EditPostForm/EditPostForm';
 
 const routerPath = createBrowserRouter(createRoutesFromElements(
   <Route path={'/'}
@@ -21,7 +22,9 @@ const routerPath = createBrowserRouter(createRoutesFromElements(
            element={<LessonThird/>}>
       <Route path={'posts'} element={<PostsApiList />} />
       <Route path={'add'} element={<AddPostApiForm />} />
-      <Route path={':postId'} element={<SingleApiPostPage />}/>
+      <Route path={':postId'} element={<SingleApiPostPage />}>
+        <Route path={'edit'} element={<EditPostForm />}/>
+      </Route>
     </Route>
   </Route>
 ));
