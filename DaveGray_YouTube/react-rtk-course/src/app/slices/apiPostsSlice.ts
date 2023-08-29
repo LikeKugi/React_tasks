@@ -44,16 +44,16 @@ export const updatePost = createAsyncThunk('apiPosts/updatePost', async (initial
 });
 
 export const deletePost = createAsyncThunk('apiPosts/deletePost', async (initialPost: IApiPostSlice) => {
-  const {id} = initialPost;
+  const { id } = initialPost;
   try {
     const response = await axios.delete(`${POSTS_URL}/${id}`);
     if (response.status === 200) return initialPost;
-    return `${response.status}: ${response.statusText}`
+    return `${response.status}: ${response.statusText}`;
   } catch (e: unknown) {
     const err = e as AxiosError;
     return err.message;
   }
-})
+});
 
 const apiPostsSlice = createSlice({
   name: 'apiPosts',
@@ -135,15 +135,15 @@ const apiPostsSlice = createSlice({
         };
         state.posts.push(outPost);
       })
-      .addCase(updatePost.fulfilled, (state, action:PayloadAction<IApiPostSlice>) => {
+      .addCase(updatePost.fulfilled, (state, action: PayloadAction<IApiPostSlice>) => {
         if (!action.payload?.id) {
           return;
         }
-        const {id} = action.payload;
+        const { id } = action.payload;
         const outObj = {
           ...action.payload,
           date: new Date().toISOString()
-        }
+        };
         const posts = state.posts.filter(post => post.id !== id);
         state.posts = [...posts, outObj];
       })
@@ -151,10 +151,10 @@ const apiPostsSlice = createSlice({
         if (typeof action.payload === 'string' || !action.payload?.id) {
           return;
         }
-        const {id} = action.payload;
+        const { id } = action.payload;
         const posts = state.posts.filter(post => post.id !== id);
         state.posts = [...posts];
-      })
+      });
   }
 });
 
@@ -163,5 +163,6 @@ export const getApiPostsLength = (state: RootState) => state.apiPosts.posts.leng
 export const getApiPostsStatus = (state: RootState) => state.apiPosts.status;
 export const getApiPostsError = (state: RootState) => state.apiPosts.error;
 export const selectApiPostById = (state: RootState, postId: number | string) => state.apiPosts.posts.find(post => post.id === postId);
+export const selectApiPostsByUser = (state: RootState, userId: number | string) => state.apiPosts.posts.filter(post => post.userId === userId);
 export const { postAdded, reactionAdded } = apiPostsSlice.actions;
 export const apiPostsReducer = apiPostsSlice.reducer;

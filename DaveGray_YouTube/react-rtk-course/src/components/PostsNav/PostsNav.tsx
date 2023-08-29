@@ -7,6 +7,7 @@ const PostsNav = (): JSX.Element => {
     <nav className={styles.nav}>
       <NavLink className={styles.nav__link} to={'add'}>Add Post</NavLink>
       <NavLink className={styles.nav__link} to={'posts'}>Posts</NavLink>
+      <NavLink className={styles.nav__link} to={'users'}>Users</NavLink>
     </nav>
   );
 };

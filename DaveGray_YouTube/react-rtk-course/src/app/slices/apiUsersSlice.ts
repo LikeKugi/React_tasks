@@ -13,7 +13,7 @@ export const fetchApiUsers = createAsyncThunk('apiUsers/fetchApiUsers', async ()
   } catch (e: unknown) {
     throw e as AxiosError;
   }
-})
+});
 
 const apiUsersSlice = createSlice({
   name: 'apiUsers',
@@ -24,7 +24,9 @@ const apiUsersSlice = createSlice({
       return action.payload;
     }).addCase(fetchApiUsers.rejected, () => []);
   }
-})
+});
 
 export const apiUsersReducer = apiUsersSlice.reducer;
+
+export const selectApiUserById = (state: RootState, userId: number) => state.apiUsers.find(user => user.id === userId);
 export const selectAllApiUsers = (state: RootState) => state.apiUsers;

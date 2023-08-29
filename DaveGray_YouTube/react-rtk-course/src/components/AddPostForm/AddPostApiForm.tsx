@@ -4,8 +4,10 @@ import { addNewApiPost } from '../../app/slices/apiPostsSlice';
 import { StatusApiType } from '../../types/slicesTypes/apiPostsSliceTypes';
 import { AxiosError } from 'axios';
 import { selectAllApiUsers } from '../../app/slices/apiUsersSlice';
+import { useNavigate } from 'react-router-dom';
 
 const AddPostApiForm = (): JSX.Element => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [userID, setUserID] = useState('');
@@ -47,6 +49,7 @@ const AddPostApiForm = (): JSX.Element => {
     setTitle('');
     setBody('');
     setUserID('');
+    navigate('/third/posts')
   };
 
   return (

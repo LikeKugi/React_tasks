@@ -8,6 +8,8 @@ import SingleApiPostPage from '../components/SingleApiPostPage/SingleApiPostPage
 import AddPostApiForm from '../components/AddPostForm/AddPostApiForm';
 import PostsApiList from '../features/posts/PostsApiList';
 import EditPostForm from '../components/EditPostForm/EditPostForm';
+import UsersApiList from '../features/users/UsersApiList';
+import UserPage from '../components/UserPage/UserPage';
 
 const routerPath = createBrowserRouter(createRoutesFromElements(
   <Route path={'/'}
@@ -24,6 +26,10 @@ const routerPath = createBrowserRouter(createRoutesFromElements(
       <Route path={'add'} element={<AddPostApiForm />} />
       <Route path={':postId'} element={<SingleApiPostPage />}>
         <Route path={'edit'} element={<EditPostForm />}/>
+      </Route>
+      <Route path={'users'}>
+        <Route index element={<UsersApiList />} />
+        <Route path=":userId" element={<UserPage />} />
       </Route>
     </Route>
   </Route>
