@@ -1,6 +1,6 @@
 import { FormEvent, JSX, useId, useState } from 'react';
 import {useDispatch} from 'react-redux';
-import { addTodo } from '@store/store';
+import { addTodo } from '@store/todos';
 
 const TodoForm = (): JSX.Element => {
   const inpId = useId();

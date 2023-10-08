@@ -1,6 +1,6 @@
 import { FC, JSX, useId } from 'react';
 import {useDispatch} from 'react-redux';
-import { toggleTodo } from '@store/store';
+import { toggleTodo } from '@store/todos';
 
 interface ITodoItemProps {
   id: number,

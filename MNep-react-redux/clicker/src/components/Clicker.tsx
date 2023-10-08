@@ -1,9 +1,9 @@
 import { JSX } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { decrement, increment, reset, RootState } from '@store/store';
+import { decrement, increment, reset, selectCounter } from '@store/clicker';
 
 const Clicker = (): JSX.Element => {
-  const count = useSelector((store: RootState) => store.counter) as number;
+  const count = useSelector(selectCounter);
   const dispatch = useDispatch();
   const clickHandler = (action: {type: string}) => {
     dispatch(action);
