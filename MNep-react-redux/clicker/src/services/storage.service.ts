@@ -16,7 +16,6 @@ export const loadState = (): RootState | undefined => {
 
 export const saveState = (state: RootState) => {
   try {
-    console.log(state)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     return true;
   } catch {
