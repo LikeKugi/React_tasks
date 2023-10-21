@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { loadUsers } from '@/store/users/users.actions';
 import { AnyAction } from 'redux';
 import TodosList from '@/store/components/TodosList';
+import NewTodo from '@/store/components/NewTodo';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <>
+      <NewTodo />
       <UsersList />
       <TodosList />
     </>

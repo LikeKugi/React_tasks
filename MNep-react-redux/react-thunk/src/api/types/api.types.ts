@@ -1,7 +1,3 @@
-export interface IConfig extends RequestInit{
-  body?: string
-}
-
 export interface IFetchClientPayload extends RequestInit{
   [T: string]: unknown
 }

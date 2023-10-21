@@ -18,6 +18,7 @@ const TodosList = (): JSX.Element => {
 
   return (
     <>
+      {todos.length && <p>Todos length: {todos.length}</p>}
       {error && <h4>{error}</h4>}
       {status === LoadingStatus.LOADING && <p>Loading...</p>}
       {todos.length && todos.map(todo => (<p key={todo.id}>{todo.title}</p>))}

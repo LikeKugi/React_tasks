@@ -19,9 +19,24 @@ export const setError = (err: string) => ({
   payload: err,
 })
 
+export const addTodo = (todo: ITodo): IAction<ITodo> => ({
+  type: TodosConstants.ADD_TODO,
+  payload: todo
+})
+
 export const loadTodos = () => (dispatch: Dispatch<IAction<unknown>>) => {
   dispatch(setLoading());
   client.get('https://jsonplaceholder.typicode.com/todos')
     .then(data => dispatch(addTodos(data as ITodo[])))
     .catch(e => dispatch(setError(e.message)));
 };
+
+export const createTodo = (title: string) => (dispatch: Dispatch<IAction<unknown>>) => {
+  client.post('https://jsonplaceholder.typicode.com/todos', {
+    body: JSON.stringify({
+      title,
+      completed: false,
+      userId: 1,
+    })
+  }).then(res => dispatch(addTodo(res as ITodo))).catch(e => dispatch(setError(e.message)));
+}

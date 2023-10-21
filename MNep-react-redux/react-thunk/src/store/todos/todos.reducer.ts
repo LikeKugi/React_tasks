@@ -9,8 +9,13 @@ const initialState: ITodoState = {
   list: [],
 }
 
-export const TodosReducer = (state: ITodoState = initialState, action: IAction<ITodo[] | string>): ITodoState => {
+export const TodosReducer = (state: ITodoState = initialState, action: IAction<ITodo[] | string | ITodo>): ITodoState => {
   switch (action.type) {
+    case TodosConstants.ADD_TODO:
+      return {
+        ...state,
+        list: [...state.list, action.payload as ITodo]
+      }
     case TodosConstants.ADD_TODOS:
       return {
         ...state,

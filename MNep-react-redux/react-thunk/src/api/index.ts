@@ -1,11 +1,11 @@
-import { fetchClientFunction, IClient, IConfig } from '@/api/types/api.types';
+import { fetchClientFunction, IClient } from '@/api/types/api.types';
 
 export const fetchData: fetchClientFunction = async (endpoint, payload) => {
   const { body, ...customConfig } = payload ?? {};
   const headers = {
     'Content-Type': 'application/json',
   };
-  const config: IConfig = {
+  const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...customConfig,
     headers: {
@@ -15,9 +15,8 @@ export const fetchData: fetchClientFunction = async (endpoint, payload) => {
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = body;
   }
-
   try {
     const response = await fetch(endpoint, config);
 
