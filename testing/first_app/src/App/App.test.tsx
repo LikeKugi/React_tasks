@@ -7,10 +7,10 @@ describe('App', () => {
     cleanup();
   });
 
-  it('Should render the page correctly', async () => {
+  it('Should render the page correctly', () => {
     // Setup
-    await render(<App />);
-    const h1 = await screen.queryByText('Vite + React');
+    render(<App />);
+    const h1 = screen.queryByText('Vite + React');
 
     // Post Expectations
     expect(h1).toBeInTheDocument();
