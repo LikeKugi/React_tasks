@@ -3,7 +3,7 @@ import styles from './Input.module.scss';
 
 interface IInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   label: string;
-  error: string;
+  error?: string;
   inputRef?: LegacyRef<HTMLInputElement>;
 }
 

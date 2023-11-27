@@ -2,12 +2,25 @@ import { FC, JSX } from 'react';
 import Input from '../Input/Input';
 import styles from './Form.module.scss';
 import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { number, string } from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface IFormProps {
   title: string;
 }
 
-interface IFormState {
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+
+const personSchema = yup.object({
+  fullName: string().matches(/^[A-Z]/).required('Name is required'),
+  age: number().moreThan(0, 'Must be positive number').required('Age is required').integer(),
+  email: string().email().required('Email is required'),
+  password: string().required('Password is required').matches(passwordRules, 'Must be STRONG'),
+  confirmPassword: string().oneOf([yup.ref('password'), ''], 'Passwords must match').required('Confirm Password is required')
+});
+
+interface IFormState extends yup.InferType<typeof personSchema> {
   fullName: string;
   email: string;
   age: number;
@@ -17,14 +30,16 @@ interface IFormState {
 
 const Form: FC<IFormProps> = ({ title }): JSX.Element => {
 
-  const { handleSubmit, control } = useForm<IFormState>({
+  const { handleSubmit, control, formState: {errors} } = useForm<IFormState>({
+    resolver: yupResolver(personSchema),
     defaultValues: {
       fullName: '',
-      age: 0,
-      confirmPassword: '',
       email: '',
+      age: 0,
       password: '',
-    }
+      confirmPassword: '',
+    },
+    mode: 'onChange',
   });
 
   const submitHandler = (data: IFormState) => {
@@ -43,10 +58,10 @@ const Form: FC<IFormProps> = ({ title }): JSX.Element => {
                     render={
                       ({ field: { ref, ...field } }) => (
                         <Input label="Full name"
-                               error=""
+                               error={errors.fullName?.message}
                                inputRef={ref}
-                               placeholder={'Full Name...'} {...field}
-                        />
+                               placeholder={'Full Name...'}
+                               {...field}/>
                       )
                     }/>
         <Controller control={control}
@@ -54,7 +69,7 @@ const Form: FC<IFormProps> = ({ title }): JSX.Element => {
                     render={
                       ({ field: { ref, ...field } }) => (
                         <Input label="Email"
-                               error=""
+                               error={errors.email?.message}
                                inputRef={ref}
                                placeholder={'Email...'}
                                type={'email'}
@@ -65,17 +80,20 @@ const Form: FC<IFormProps> = ({ title }): JSX.Element => {
                     name={'age'}
                     render={({ field: { ref, ...field } }) => (
                       <Input label="Age"
-                             error=""
+                             error={errors.age?.message}
                              inputRef={ref}
                              placeholder={'Age...'}
-                             type={'number'} {...field}/>)}/>
+                             type={'number'}
+                             {...field}/>
+                    )
+                    }/>
 
         <Controller control={control}
                     name={'password'}
                     render={({ field: { ref, ...field } }) => (
                       <Input label="Password"
                              inputRef={ref}
-                             error=""
+                             error={errors.password?.message}
                              placeholder={'Password...'}
                              type={'password'}
                              {...field}/>
@@ -86,7 +104,7 @@ const Form: FC<IFormProps> = ({ title }): JSX.Element => {
                     render={({ field: { ref, ...field } }) => (
                       <Input label="Confirm Password"
                              inputRef={ref}
-                             error=""
+                             error={errors.confirmPassword?.message}
                              placeholder={'Confirm Password...'}
                              type={'password'}
                              {...field}/>
