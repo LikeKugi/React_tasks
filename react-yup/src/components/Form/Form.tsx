@@ -35,7 +35,7 @@ const Form: FC<IFormProps> = ({ title }): JSX.Element => {
     defaultValues: {
       fullName: '',
       email: '',
-      age: 0,
+      age: undefined,
       password: '',
       confirmPassword: '',
     },
