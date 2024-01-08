@@ -1,13 +1,8 @@
 import { createContext, useMemo, useState } from 'react';
-import { createTheme } from '@mui/material';
+import { createTheme, PaletteMode, Theme } from '@mui/material';
 
-export const enum ThemeMode {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
-
-export const tokens = (mode: ThemeMode) => ({
-  ...(mode === ThemeMode.DARK) ? {
+export const tokens = (mode: PaletteMode) => ({
+  ...(mode === 'dark') ? {
     grey: {
       100: "#e0e0e0",
       200: "#c2c2c2",
@@ -122,12 +117,12 @@ export const tokens = (mode: ThemeMode) => ({
   }
 })
 
-export const themeSettings = (mode: ThemeMode) => {
+export const themeSettings = (mode: PaletteMode) => {
   const colors = tokens(mode);
   return {
     palette: {
       mode: mode,
-      ...(mode === ThemeMode.DARK
+      ...(mode === 'dark'
         ? {
           // palette values for dark mode
           primary: {
@@ -199,19 +194,18 @@ export const themeSettings = (mode: ThemeMode) => {
   };
 };
 
-export const ColorModeContext = createContext({
-  toggleColorMode: () => {},
-});
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-export const useMode = () => {
-  const [mode, setMode] = useState(ThemeMode.DARK);
+export const useThemeMode = (): [Theme, {toggleColorMode: () => void}] => {
+  const [mode, setMode] = useState<PaletteMode>('dark');
 
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () =>
-        setMode((prev) => (prev === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT)),
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
     }),
-    []
+    [],
   );
 
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

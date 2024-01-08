@@ -1,10 +1,19 @@
 import AppRouter from '@/routes/AppRouter';
+import { ColorModeContext, useThemeMode } from '@/context/theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 function App() {
 
+  const [theme, colorMode] = useThemeMode();
+
   return (
     <>
-      <AppRouter />
+      <ColorModeContext.Provider value={colorMode} >
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppRouter />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   )
 }
