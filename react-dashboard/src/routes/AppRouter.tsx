@@ -3,9 +3,11 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { RoutesConstants } from '@/routes/Routes.constants';
 import RootPage from '@/pages/RootPage/RootPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import TeamPage from '@/pages/TeamPage/TeamPage';
 
 const routes = createBrowserRouter(createRoutesFromElements(
   <Route path={RoutesConstants.INDEX} element={<RootPage />}>
+    <Route path={RoutesConstants.TEAM} element={<TeamPage />} />
     <Route path={RoutesConstants.NOT_FOUND} element={<NotFoundPage />} />
   </Route>
 ))
