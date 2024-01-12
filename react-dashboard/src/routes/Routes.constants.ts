@@ -9,4 +9,5 @@ export const enum RoutesConstants {
   LINE = '/line',
   FAQ = '/faq',
   CALENDAR = '/calendar',
+  NOT_FOUND = '*'
 }
