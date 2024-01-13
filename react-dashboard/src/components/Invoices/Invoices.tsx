@@ -62,7 +62,8 @@ const Invoices = (): JSX.Element => {
                   checkboxSelection
                   rows={mockDataInvoices}
                   sx={{ minHeight: '80vh', maxWidth: '100%' }}
-                  components={{ Toolbar: GridToolbar }}/>
+
+                  slots={{ toolbar: GridToolbar, }}/>
       </Box>
     </Stack>
   );
