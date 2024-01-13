@@ -5,11 +5,13 @@ import RootPage from '@/pages/RootPage/RootPage';
 import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
 import TeamPage from '@/pages/TeamPage/TeamPage';
 import ContactsPage from '@/pages/ContactsPage/ContactsPage';
+import InvoicesPage from '@/pages/InvoicesPage/InvoicesPage';
 
 const routes = createBrowserRouter(createRoutesFromElements(
   <Route path={RoutesConstants.INDEX} element={<RootPage />}>
     <Route path={RoutesConstants.TEAM} element={<TeamPage />} />
     <Route path={RoutesConstants.CONTACTS} element={<ContactsPage />}/>
+    <Route path={RoutesConstants.INVOICES} element={<InvoicesPage />}/>
 
     <Route path={RoutesConstants.NOT_FOUND} element={<NotFoundPage />} />
   </Route>

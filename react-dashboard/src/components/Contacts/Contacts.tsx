@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { tokens } from '@/context/theme';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { mockDataContacts } from '@/services/mockData';
 
 const Contacts = (): JSX.Element => {
@@ -48,8 +48,11 @@ const Contacts = (): JSX.Element => {
         "& .MuiCheckbox-root": {
           color: `${colors.greenAccent[200]} !important`,
         },
+        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+          color: `${colors.grey[100]} !important`
+        },
       }}>
-        <DataGrid columns={columns} rows={mockDataContacts} sx={{minHeight: '80vh'}}/>
+        <DataGrid columns={columns} rows={mockDataContacts} sx={{minHeight: '80vh'}} components={{Toolbar: GridToolbar}}/>
       </Box>
     </Stack>
   );
