@@ -1,4 +1,4 @@
-import AppRouter from '@/routes/AppRouter';
+import { AppRouter } from '@/routes';
 import { ColorModeContext, useThemeMode } from '@/context/theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
