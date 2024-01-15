@@ -26,7 +26,7 @@ const userSchema = yup.object({
 const Form = (): JSX.Element => {
   const isNonMobile = useMediaQuery('min-width:600px');
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: object) => {
     console.log(values);
   };
 

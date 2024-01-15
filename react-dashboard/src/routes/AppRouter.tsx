@@ -7,6 +7,7 @@ import TeamPage from '@/pages/TeamPage/TeamPage';
 import ContactsPage from '@/pages/ContactsPage/ContactsPage';
 import InvoicesPage from '@/pages/InvoicesPage/InvoicesPage';
 import FormPage from '@/pages/FormPage/FormPage';
+import CalendarPage from '@/pages/CalendarPage/CalendarPage';
 
 const routes = createBrowserRouter(createRoutesFromElements(
   <Route path={RoutesConstants.INDEX} element={<RootPage />}>
@@ -14,6 +15,7 @@ const routes = createBrowserRouter(createRoutesFromElements(
     <Route path={RoutesConstants.CONTACTS} element={<ContactsPage />}/>
     <Route path={RoutesConstants.INVOICES} element={<InvoicesPage />}/>
     <Route path={RoutesConstants.FORM} element={<FormPage />} />
+    <Route path={RoutesConstants.CALENDAR} element={<CalendarPage />} />
 
     <Route path={RoutesConstants.NOT_FOUND} element={<NotFoundPage />} />
   </Route>
