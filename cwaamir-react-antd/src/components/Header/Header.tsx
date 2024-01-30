@@ -24,15 +24,15 @@ const Header = (): JSX.Element => {
           children: [
             {
               label: "Men's Shirts",
-              key: "men-shirts",
+              key: "mens-shirts",
             },
             {
               label: "Men's Shoes",
-              key: "men-shoes",
+              key: "mens-shoes",
             },
             {
               label: "Men's Watches",
-              key: "men-watches",
+              key: "mens-watches",
             },
           ],
         },
@@ -42,23 +42,23 @@ const Header = (): JSX.Element => {
           children: [
             {
               label: "Women's Dresses",
-              key: "women-dresses",
+              key: "womens-dresses",
             },
             {
               label: "Women's Shoes",
-              key: "women-shoes",
+              key: "womens-shoes",
             },
             {
               label: "Women's Watches",
-              key: "women-watches",
+              key: "womens-watches",
             },
             {
               label: "Women's Bags",
-              key: "women-bags",
+              key: "womens-bags",
             },
             {
               label: "Women's Jewellery",
-              key: "women-jewellery",
+              key: "womens-jewellery",
             },
           ]
         },

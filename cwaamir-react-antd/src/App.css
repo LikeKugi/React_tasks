@@ -17,5 +17,6 @@
 }
 
 .itemCardImage {
+  height: 150px !important;
   object-fit: scale-down;
 }
